@@ -1,8 +1,50 @@
-//
-//  Plane.swift
-//  MAPD724-W2021-Lesson6
-//
-//  Created by Abdeali Mody on 2021-02-26.
-//
+import SpriteKit
+import GameplayKit
 
-import Foundation
+class Plane: GameObject
+{
+    //constructor
+    init()
+    {
+        super.init(imageString: "plane", initialScale: 2.0 )
+        Start()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //LifeCycle Functions
+    override func CheckBounds()
+    {
+        //constrain on the left
+        if (position.x <= -310){
+            position.x = -310
+        }
+        //constrain on the right
+        if (position.x >= 310){
+           position.x = 310
+        }
+    }
+    
+    override func Reset()
+    {
+
+    }
+    //initialization
+    override func Start()
+    {
+        zPosition = 2
+
+    }
+    
+    override func Update()
+    {
+        CheckBounds()
+    }
+    
+    func TouchMove(newPos: CGPoint)
+    {
+        position = newPos
+    }
+}

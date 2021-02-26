@@ -1,8 +1,61 @@
-//
-//  Cloud.swift
-//  MAPD724-W2021-Lesson6
-//
-//  Created by Abdeali Mody on 2021-02-26.
-//
+import SpriteKit
+import GameplayKit
 
-import Foundation
+class Cloud: GameObject
+{
+    //constructor
+    init()
+    {
+        super.init(imageString: "cloud", initialScale: 1.0 )
+        Start()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //LifeCycle Functions
+    override func CheckBounds()
+    {
+        if (position.y <= -756)
+        {
+            Reset()
+        }
+    }
+    
+    override func Reset()
+    {
+        position.y = 756
+        
+        dy = CGFloat((randomSource?.nextUniform())! * 5.0) + 5.0
+        dx = CGFloat((randomSource?.nextUniform())! * -4.0) + 2.0
+        
+        let randomX: Int = (randomSource?.nextInt(upperBound: 524))! - 262
+        position.x = CGFloat(randomX)
+        
+        let randomY: Int = (randomSource?.nextInt(upperBound: 10))! + 756
+        position.y = CGFloat(randomY)
+        
+        
+        isColliding = false
+    }
+    //initialization
+    override func Start()
+    {
+        zPosition = 3
+        alpha = 0.5
+        Reset()
+    }
+    
+    override func Update()
+    {
+        Move()
+        CheckBounds()
+    }
+    
+    func Move()
+    {
+        position.y -= dy!
+        position.x -= dx!
+    }
+}
