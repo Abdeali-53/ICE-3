@@ -51,4 +51,3 @@ class Island: GameObject
         position.y -= dy!
     }
 }
-
